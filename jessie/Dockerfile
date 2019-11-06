@@ -7,6 +7,6 @@ RUN apt-get update && \
 
 RUN echo "Europe/Budapest" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
-ADD locale.gen /etc/locale.gen
+ADD common/locale.gen /etc/locale.gen
 RUN locale-gen
 ENV LC_CTYPE en_US.UTF-8
