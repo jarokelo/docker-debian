@@ -12,7 +12,9 @@ env:
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker pull debian:$DEBIAN_VERSION
-  - docker build -t jarokelo/debian:$DEBIAN_VERSION -f "${DEBIAN_VERSION}/Dockerfile" .
 
 script:
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && docker push jarokelo/debian:$DEBIAN_VERSION || echo "Not pushing for pull request."'
+  - docker build -t jarokelo/debian:$DEBIAN_VERSION -f "${DEBIAN_VERSION}/Dockerfile" .
+
+after_success:
+  - docker push jarokelo/debian:${DEBIAN_VERSION}
